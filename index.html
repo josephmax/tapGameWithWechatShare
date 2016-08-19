@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <meta name="x5-fullscreen" content="true">
+    <meta name="full-screen" content="yes">
+
+    <link rel="stylesheet" href="http://ker.iihwx.com/iih_wechatbs/Public/home/common/shangshi/css/sm.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="http://www.iihwx.com/iih_wechatbs/Public/home/common/js/cookie.min.js"></script>
+    <script src="http://ker.iihwx.com/iih_wechatbs/Public/home/common/shangshi/js/zepto.min.js"></script>
+
+</head>
+
+<body>
+<div id="app">
+</div>
+
+</body>
+
+<script>
+    //神秘代码
+    (function ($) {
+        'use strict';
+
+        var Set_html_rem = function (element, options) {
+            this.$element = element,
+                    this.defaults = {},
+                    this.opts = $.extend({}, this.defaults, options);
+
+        };
+
+
+        // 初始化
+        Set_html_rem.prototype.init = function () {
+            // 客户端与根字体比例
+            var proportion = 0.0625;
+            // 客户端可视区宽度
+            var clientW;
+            // 根元素字体大小
+            var html_rem;
+            // max width
+            var max_width = 480;
+            var min_width = 320;
+
+
+            set_rem();
+
+            $(window).on('resize', set_rem);
+
+            function set_rem() {
+                clientW = $(window).width();
+
+                // 大于480,则依然使用480
+                if (clientW > max_width) {
+                    clientW = max_width;
+                }
+                ;
+                // 小于320 ,使用320px
+                if (clientW < min_width) {
+                    clientW = min_width;
+                }
+                ;
+
+                // 获取该尺寸的字体大小并设置
+                html_rem = clientW * proportion;
+                $('html').css('font-size', html_rem+'px !important');
+            }
+
+        };
+
+
+        (function (options) {
+            var obj = new Set_html_rem(this, options);
+            return obj.init();
+        })();
+
+    })($);
+    document.body.addEventListener('touchmove', function (e) {
+        if (!e._isScroller) {
+            e.preventDefault()
+        }
+    }, false)
+</script>
+
+
+
+
+</html>
